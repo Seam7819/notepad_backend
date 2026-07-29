@@ -1,13 +1,19 @@
 import { Posts } from "../../../generated/prisma/client";
 import { prisma } from "../../lib/prisma";
 
-const createPost = async (data : Omit<Posts, "id" | "createdAt" | "updatedAt">) => {
+const createPost = async (data: Omit<Posts, "id" | "createdAt" | "updatedAt">) => {
     const result = await prisma.posts.create({
-        data 
+        data
     })
     return result;
 }
 
+const getAllPosts = async ()=>{
+    const result = await prisma.posts.findMany();
+    return result;
+}
+
 export const postService = {
-    createPost
+    createPost,
+    getAllPosts
 }

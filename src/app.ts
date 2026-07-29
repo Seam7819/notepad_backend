@@ -8,8 +8,12 @@ import { auth } from "./lib/auth";
 const app = express();
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 
-app.use(cors());
 app.use(express.json());
+app.use(cors({
+    origin: process.env.APP_URL || "http://localhost:3000",
+    credentials: true,
+}));
+
 
 app.use("/posts", postRouter);
 
